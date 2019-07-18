@@ -1,1 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+// hue. Available color palettes: https://material.io/design/color/
+$app-primary: mat-palette($mat-blue-grey);
+$app-accent:  mat-palette($mat-amber, A200, A100, A400);
+$app-warn:    mat-palette($mat-deep-orange);
+$app-theme:   mat-dark-theme($app-primary, $app-accent, $app-warn);
+//$app-theme:   mat-light-theme($app-primary, $app-accent, $app-warn);
+
+@include angular-material-theme($app-theme);
+
+
+
+//snackbar theme
+@mixin snack-theme($theme) {
+  $primary: mat-color(map-get($theme, primary), 300);
+  $primary-text: mat-color(map-get($theme, primary), default-contrast);
+  $warn: mat-color(map-get($theme, warn));
+  $warn-text: mat-color(map-get($theme, warn), default-contrast);
+
+  .snack-success {
+    color: $primary-text;
+    background-color: $primary;
+  }
+  .snack-success .mat-simple-snackbar-action  {
+    color: $primary-text;
+  }
+  .snack-error {
+    color: $warn-text;
+    background-color: $warn;
+  }
+  .snack-error .mat-simple-snackbar-action {
+    color: $warn-text;
+  }
+}
+@include snack-theme($app-theme);
